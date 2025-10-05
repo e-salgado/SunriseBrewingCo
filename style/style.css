@@ -261,7 +261,6 @@ nav {
 
 .cards {
     min-height: 60vh;
-    width: 100vw;
     margin: auto;
     padding: 5rem;
     display: flex;
@@ -332,6 +331,7 @@ nav {
 .footer-grid p{
     font-size: 1.6rem;
     margin: auto;
+    
 }
 
 .footer-col {
