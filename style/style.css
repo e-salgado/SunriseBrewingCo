@@ -408,6 +408,44 @@ nav {
     font-size: 1.5rem;
 }
 
+.search {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+
+.search-bar {
+  padding: 0.5rem 1rem;
+  border: 2px solid #E3B23C;
+  border-radius: 50px; 
+  font-size: 1rem;
+  transition: box-shadow 0.3s, border-color 0.3s;
+  background-color: #fff;
+}
+
+.search-bar:focus {
+  outline: none;
+  border-color: #cfa030;
+  box-shadow: 0 0 8px rgba(227, 178, 60, 0.6);
+}
+
+.search-btn {
+  background-color: #E3B23C;
+  border: none;
+  color: #fff;
+  padding: 0.5rem 1.2rem;
+  font-weight: bold;
+  border-radius: 50px;
+  transition: background 0.3s, transform 0.2s;
+  cursor: pointer;
+}
+
+.search-btn:hover {
+  background-color: #cfa030;
+  transform: scale(1.05);
+}
+
 /* Product Grid */
 .product-grid {
     display: grid;

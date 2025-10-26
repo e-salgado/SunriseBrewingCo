@@ -10,6 +10,7 @@
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
         <link rel="stylesheet" href="style/style.css">
     <title>Shop</title>
+	</head>
 <body>
     <!--Nav Bar-->
     <header class="main-head">
@@ -21,7 +22,7 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="shop.html">Shop</a></li>
                 <li><a href="#">About</a></li>
-                <li><a href="#">Cart</a></li>
+                <li><a href="#">Cart </a></li>
             </ul>
             <a href="./signup.html"><button class="nav-btn">Sign Up</button></a>
         </nav>
@@ -45,8 +46,12 @@
                     <option value="desc">Price: High to Low</option>
                 </select>
             </div>
+			<div class="search">
+				<input type="text" id="searchInput" class="search-bar" placeholder="Search products...">
+				<button id="searchBtn" class="search-btn">Search</button>
+  </div>
     </div>
-
+		
     <div class="product-grid" id="productGrid">
         <!-- Products will go here -->
     </div>
@@ -69,8 +74,8 @@
             <li><a href="">X</a></li>
         </ul>
     </footer>
-
-    <script src="./script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="./script.js"></script>	
 </body>
 
 </html>

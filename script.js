@@ -1,59 +1,96 @@
-        const products = [
-            // Coffee Beans
-            { name: "Columbian Dark Roast",  ProductID: "B001", desc: "A rich, full-bodied coffee with notes of chocolate and caramel.", Tags: ["dark roast", "arabica", "premium"], price: 14.99, category: "beans",  UnitOfMeasure: "12 oz bag", img: "./img/beans.jpg" },
-            { name: "Ethiopian Light Roast", ProductID: "B002", desc: "Bright, floral flavor, and aroma with a mellow and smooth taste.", Tags: ["light roast", "single origin", "organic"], price: 13.49, category: "beans", UnitOfMeasure: "12 oz bag", img: "https://images.pexels.com/photos/28411627/pexels-photo-28411627.jpeg" },
-            { name: "Espresso Blend", ProductID: "B003", desc: "Balanced blend designed for espresso and lattes.", Tags: ["espresso", "medium roast", "blend"], price: 16.99, category: "beans", UnitOfMeasure: "12 oz bag", img: "https://images.pexels.com/photos/7541875/pexels-photo-7541875.jpeg" },
+$(document).ready(function () {
+	
+  //Jquery Syntax for the selectors
+  const $grid = $("#productGrid");
+  const $filterButtons = $(".filter-btn");
+  const $sortSelect = $("#sort");
+	
+  let cart = {};
+	
+  function addToCart(product) {
+        if (cart[product.ProductID]) {
+            cart[product.ProductID].quantity += 1;
+        } else {
+            cart[product.ProductID] = { ...product, quantity: 1 };
+        }
+        console.log("Cart:", cart);
+  }
+	
+  // Load products from external JSON file
+  $.getJSON("products.json", function (products) {
 
-            // Accessories
-            { name: "Hand Coffee Grinder", ProductID: "A001", desc: "Adjustable burr for perfect grind size every time.", Tags: ["grinder", "manual", "portable"], price: 29.99, category: "accessories", UnitOfMeasure: "Each", img: "./img/grinder.jpg" },
-            { name: "French Press", ProductID: "A002",desc: "Elegant design, makes 4 cups of rich coffee.", Tags: ["french press", "brewer", "manual"], price: 39.99, category: "accessories", UnitOfMeasure: "Each", img: "https://images.pexels.com/photos/34263261/pexels-photo-34263261.jpeg?_gl=1*1nf3plc*_ga*MTkwNTE0ODQyMS4xNzYwNzExNDk5*_ga_8JE65Q40S6*czE3NjA3MTE0OTgkbzEkZzEkdDE3NjA3MTE1NjAkajU5JGwwJGgw%22" },
-            { name: "Milk Frother", ProductID: "A003", desc: "Handheld frother for creamy foam and cafe-style drinks.", Tags: ["frother", "latte", "electric"], price: 19.99, category: "accessories", UnitOfMeasure: "Each", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3gfSRThw3jYi2zU9gQ1i-tNjb-ICWFtw41g&s" },
-
-            // Mugs
-            { name: "Classic Ceramic Mug", ProductID: "M001", desc: "Simple, durable, handcrafted, and dishwasher safe.", Tags: ["mug", "ceramic", "logo"], price: 9.99, category: "mugs", UnitOfMeasure: "Each", img: "https://images.pexels.com/photos/30487201/pexels-photo-30487201.jpeg?_gl=1*1ysgcrm*_ga*MTkwNTE0ODQyMS4xNzYwNzExNDk5*_ga_8JE65Q40S6*czE3NjA3MTE0OTgkbzEkZzEkdDE3NjA3MTIwMTMkajU5JGwwJGgw%22" },
-            { name: "Two-Tone Mug", ProductID: "M002", desc: "Beautiful brown ceramic mug dipped in white on the side.", Tags: ["two-tone", "brown", "ceramic", "handcrafted"], price: 24.99, category: "mugs", UnitOfMeasure: "Each", img: "./img/coffee_mug.jpg" },
-            { name: "Travel Thermos", ProductID: "M003", desc: "40 oz stainless steel travel cup with leak-proof lid.", Tags: ["travel", "stainless steel", "eco-friendly"], price: 21.99, category: "mugs", UnitOfMeasure: "Each", img: "https://images.unsplash.com/photo-1613645540553-d98859ffeec5?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=686" }
-        ];
-
-        const grid = document.getElementById("productGrid");
-        const filterButtons = document.querySelectorAll(".filter-btn");
-        const sortSelect = document.getElementById("sort");
-
-        function displayProducts(items) {
-            grid.innerHTML = items.map(p => `
+    function displayProducts(items) {
+      const html = items.map(p => `
         <div class="product-card" data-category="${p.category}" data-price="${p.price}">
           <img src="${p.img}" alt="${p.name}">
           <div class="product-info">
             <h2>${p.name}</h2>
             <p>${p.desc}</p>
             <div class="price">$${p.price.toFixed(2)}</div>
-            <a href="#" class="product-btn">Add to Cart</a>
+            <a href="#" class="product-btn" data-id="${p.ProductID}">Add to Cart</a>
           </div>
         </div>
       `).join("");
-        }
-
-        function filterProducts(category) {
-            let filtered = category === "all" ? products : products.filter(p => p.category === category);
-            const sortValue = sortSelect.value;
-            if (sortValue === "asc") filtered.sort((a, b) => a.price - b.price);
-            if (sortValue === "desc") filtered.sort((a, b) => b.price - a.price);
-            displayProducts(filtered);
-        }
-
-        // Event listeners
-        filterButtons.forEach(btn => {
-            btn.addEventListener("click", () => {
-                document.querySelector(".filter-btn.active").classList.remove("active");
-                btn.classList.add("active");
-                filterProducts(btn.dataset.category);
+      $grid.html(html);
+      console.log("Loaded products:", products);
+		
+		$(".product-btn").on("click", function (e) {
+                e.preventDefault();
+                const id = $(this).data("id");
+                const product = products.find(p => p.ProductID === id);
+                addToCart(product);
             });
-        });
 
-        sortSelect.addEventListener("change", () => {
-            const activeCategory = document.querySelector(".filter-btn.active").dataset.category;
-            filterProducts(activeCategory);
-        });
+    }
 
-        // Initial display
-        displayProducts(products);
+    function filterProducts(category, query = "") {
+		let filtered = category === "all" ? products : products.filter(p => p.category === category);
+		
+		if (query) {
+			filtered = filtered.filter(p =>
+			   p.name.toLowerCase().includes(query) || p.desc.toLowerCase().includes(query) ||
+			   (p.Tags && p.Tags.some(tag => tag.toLowerCase().includes(query)))
+			);
+		}
+	  const sortValue = $sortSelect.val();
+      if (sortValue === "asc") filtered.sort((a, b) => a.price - b.price);
+      if (sortValue === "desc") filtered.sort((a, b) => b.price - a.price);
+		displayProducts(filtered);
+	}
+
+    // Event listeners
+    $filterButtons.on("click", function () {
+      $(".filter-btn.active").removeClass("active");
+      $(this).addClass("active");
+      const category = $(this).data("category");
+	  const query = $("#searchInput").val().trim().toLowerCase();
+      filterProducts(category, query);
+    });
+
+    $sortSelect.on("change", function () {
+      const activeCategory = $(".filter-btn.active").data("category") || "all";
+	  const query = $("#searchInput").val().trim().toLowerCase();
+      filterProducts(activeCategory, query);
+    });
+	  
+    $(".filter-btn[data-category='all']").addClass("active");
+
+  	$("#searchBtn").on("click", function () {
+		const query = $("#searchInput").val().trim().toLowerCase();
+		const category = $(".filter-btn.active").data("category") || "all";
+		filterProducts(category, query);
+	});
+	  
+  	$("#searchInput").on("keyup", function () {
+		const query = $(this).val().trim().toLowerCase();
+		const category = $(".filter-btn.active").data("category") || "all";
+		filterProducts(category, query);
+	});
+
+
+    // Initial display
+    displayProducts(products);
+  }).fail(function () {
+    console.error("Error loading products.json");
+  });
+});
