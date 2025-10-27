@@ -509,7 +509,7 @@ nav {
     color: #fff;
     border: none;
     border-radius: 2rem;
-    padding: 1rem 1rem;
+    padding: 1rem 2rem;
     font-size: 1.6rem;
     cursor: pointer;
     transition: background 0.5s ease-in-out;
@@ -522,6 +522,18 @@ nav {
 .product-btn:hover {
     background-color: #423E37;
 }
+
+/*------------------Cart Page------------------*/
+.cart-container{
+    min-height: 90vh;
+    background-color: #fff;
+}
+
+#checkout-btn{
+    margin-bottom: 2rem;
+    
+}
+
 
 @media (max-width: 870px) {
 /* Styles applied when the viewport width is 768px or wider */
