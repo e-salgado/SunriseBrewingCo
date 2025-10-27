@@ -174,7 +174,6 @@ $(document).ready(function () {
                 text: 'Item Has Been Added To Your Cart',
                 icon: 'success',
                 iconColor: '#e3b23c',
-                theme: 'auto',
                 confirmButtonText: 'OK',
                 confirmButtonColor: '#e3b23c'
             });
