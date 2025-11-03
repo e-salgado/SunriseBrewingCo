@@ -160,7 +160,7 @@ $(document).ready(function () {
 
     // Checkout
     $("#checkout-btn").on("click", function () {
-        alert("Checkout functionality coming soon!")
+        open("./shipping_checkout.html")
     });
 
     // Custom alert to confirm when item is added to the cart
