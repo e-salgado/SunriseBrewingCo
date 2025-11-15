@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="shippingApp">
+<html lang="en" ng-app="billingApp">
 
 <head>
     <meta charset="UTF-8">
@@ -121,104 +121,75 @@
 					
 					
                 </div>
-                <div class="col-md-7 col-lg-8">
-                    <h4 class="mb-3">Billing Address</h4>
-					<!-- validation summary-->
-					<div class="validation-summary" ng-show="shippingForm.$submitted && shippingForm.$invalid">
-                        <h5>Please fix the following errors:</h5>
-                        <ul class="mb-0">
-                            <li ng-show="shippingForm.firstName.$error.required">First name is required</li>
-                            <li ng-show="shippingForm.lastName.$error.required">Last name is required</li>
-                            <li ng-show="shippingForm.email.$error.required">Email is required</li>
-                            <li ng-show="shippingForm.email.$error.email">Please enter a valid email address</li>
-                            <li ng-show="shippingForm.address.$error.required">Address is required</li>
-                            <li ng-show="shippingForm.country.$error.required">Country is required</li>
-                            <li ng-show="shippingForm.state.$error.required">State is required</li>
-                            <li ng-show="shippingForm.zip.$error.required">Zip code is required</li>
-                            <li ng-show="shippingForm.zip.$error.pattern">Zip code must be 5 digits</li>
-                        </ul>
-                    </div>
-					
-                    <form name="shippingForm" class="needs-validation" novalidate ng-submit="vm.submitForm(shippingForm)">
-                        <div class="row g-3">
-                            <!-- First Name -->
-                            <div class="col-sm-6">
-                                <label for="firstName" class="form-label required">First name</label> 
-                                <input type="text" class="form-control" id="firstName" name="firstName" 
-                                    placeholder="" required ng-model="vm.firstName" ng-minlength="2" ng-maxlength="50">
-                                <div class="error-message" ng-show="shippingForm.firstName.$touched && shippingForm.firstName.$error.required">
-                                    First name is required.
-                                </div>
-                                <div class="error-message" ng-show="shippingForm.firstName.$touched && shippingForm.firstName.$error.minlength">
-                                    First name must be at least 2 characters.
-                                </div>
-                                <div class="error-message" ng-show="shippingForm.firstName.$touched && shippingForm.firstName.$error.maxlength">
-                                    First name cannot exceed 50 characters.
-                                </div>
-                            </div>
-							
-                            <!-- Last Name -->
-                            <div class="col-sm-6">
-                                <label for="lastName" class="form-label required">Last name</label> 
-                                <input type="text" class="form-control" id="lastName" name="lastName" 
-                                    placeholder="" required ng-model="vm.lastName" ng-minlength="2" ng-maxlength="50">
-                                <div class="error-message" ng-show="shippingForm.lastName.$touched && shippingForm.lastName.$error.required">
-                                    Last name is required.
-                                </div>
-                                <div class="error-message" ng-show="shippingForm.lastName.$touched && shippingForm.lastName.$error.minlength">
-                                    Last name must be at least 2 characters.
-                                </div>
-                                <div class="error-message" ng-show="shippingForm.lastName.$touched && shippingForm.lastName.$error.maxlength">
-                                    Last name cannot exceed 50 characters.
-                                </div>
-                            </div>
-                            
-							
-                            <!-- Email -->
-                            <div class="col-12">
-                                <label for="email" class="form-label required">Email</label> 
-                                <input type="email" class="form-control" id="email" name="email"
-                                    placeholder="you@example.com" required ng-model="vm.email">
-                                <div class="error-message" ng-show="shippingForm.email.$touched && shippingForm.email.$error.required">
-                                    Email is required.
-                                </div>
-                                <div class="error-message" ng-show="shippingForm.email.$touched && shippingForm.email.$error.email">
-                                    Please enter a valid email address.
-                                </div>
-                            </div>
-                            <!-- Address 1 -->
-                            <div class="col-12">
-                                <label for="address" class="form-label required">Address</label> 
-                                <input type="text" class="form-control" id="address" name="address" 
-                                    placeholder="Address 1" required ng-model="vm.AddressOne">
-                                <div class="error-message" ng-show="shippingForm.address.$touched && shippingForm.address.$error.required">
-                                    Please enter your shipping address.
-                                </div>
-                            </div>
-                            <!-- Address 2 -->
-                            <div class="col-12">
-                                <label for="address2" class="form-label">Address 2 <span class="text-body-secondary">(Optional)</span></label> 
-                                <input type="text" class="form-control" id="address2" name="address2" 
-                                    placeholder="Apartment or suite" ng-model="vm.AddressTwo">
-                            </div>
-							
-                            <!-- Country -->
-                            <div class="col-md-5">
-                                <label for="country" class="form-label required">Country</label> 
-                                <select class="form-select" id="country" name="country" required ng-model="vm.country">
-                                    <option value="">Choose...</option>
-                                    <option>United States</option>
-                                </select>
-                                <div class="error-message" ng-show="shippingForm.country.$touched && shippingForm.country.$error.required">
-                                    Please select a valid country.
-                                </div>
-                            </div>
+					<div class="col-md-7 col-lg-8">
+						<h4 class="mb-3">Billing Address</h4>
+						<!-- validation summary-->
+						<div class="validation-summary" ng-show="billingForm.$submitted && billingForm.$invalid">
+							<h5>Please fix the following errors:</h5>
+							<ul class="mb-0">
+								<li ng-show="billingForm.firstName.$error.required">First name is required</li>
+								<li ng-show="billingForm.lastName.$error.required">Last name is required</li>
+								<li ng-show="billingForm.email.$error.required">Email is required</li>
+								<li ng-show="billingForm.email.$error.email">Please enter a valid email address</li>
+								<li ng-show="billingForm.address.$error.required">Address is required</li>
+								<li ng-show="billingForm.country.$error.required">Country is required</li>
+								<li ng-show="billingForm.state.$error.required">State is required</li>
+								<li ng-show="billingForm.zip.$error.required">Zip code is required</li>
+								<li ng-show="billingForm.zip.$error.pattern">Zip code must be 5 digits</li>
+								<li ng-show="billingForm.paymentMethod.$error.required">Payment method is required</li>
+								<li ng-show="billingForm.ccName.$error.required">Name on card is required</li>
+								<li ng-show="billingForm.ccNumber.$error.required">Card number is required</li>
+								<li ng-show="billingForm.ccExpiration.$error.required">Expiration date is required</li>
+								<li ng-show="billingForm.ccCVV.$error.required">CVV is required</li>
+							</ul>
+						</div>
+
+						<form name="billingForm" ng-controller="CheckoutCtrl as vm" novalidate ng-submit="vm.submitForm(billingForm)">
+						<div class="row g-3">
+							<!-- First Name -->
+							<div class="col-sm-6">
+								<label for="firstName" class="form-label required">First name</label>
+								<input type="text" class="form-control" id="firstName" name="firstName" required ng-model="vm.firstName">
+							</div>
+
+							<!-- Last Name -->
+							<div class="col-sm-6">
+								<label for="lastName" class="form-label required">Last name</label>
+								<input type="text" class="form-control" id="lastName" name="lastName" required ng-model="vm.lastName">
+							</div>
+
+							<!-- Email -->
+							<div class="col-12">
+								<label for="email" class="form-label required">Email</label>
+								<input type="email" class="form-control" id="email" name="email" required ng-model="vm.email">
+							</div>
+
+							<!-- Address 1 -->
+							<div class="col-12">
+								<label for="address" class="form-label required">Address</label>
+								<input type="text" class="form-control" id="address" name="address" required ng-model="vm.AddressOne">
+							</div>
+
+							<!-- Address 2 -->
+							<div class="col-12">
+								<label for="address2" class="form-label">Address 2 <span class="text-body-secondary">(Optional)</span></label>
+								<input type="text" class="form-control" id="address2" name="address2" ng-model="vm.AddressTwo">
+							</div>
+
+							<!-- Country -->
+							<div class="col-md-5">
+								<label for="country" class="form-label required">Country</label>
+								<select class="form-select" id="country" name="country" required ng-model="vm.country">
+									<option value="">Choose...</option>
+									<option>United States</option>
+								</select>
+							</div>
+
 							<!-- State -->
-                            <div class="col-md-4">
-								<label for="state" class="form-label required">State</label> 
-								<select class="form-select" id="state" name="state"required ng-model="vm.state">
-								
-                                    <option value="">Select a State</option>
+							<div class="col-md-4">
+								<label for="state" class="form-label required">State</label>
+								<select class="form-select" id="state" name="state" required ng-model="vm.state">
+									<option value="">Select a State</option>
                                     <option value="AL">Alabama</option>
                                     <option value="AK">Alaska</option>
                                     <option value="AZ">Arizona</option>
@@ -270,66 +241,52 @@
                                     <option value="WV">West Virginia</option>
                                     <option value="WI">Wisconsin</option>
                                     <option value="WY">Wyoming</option>
-                                </select>
-                                <div class="error-message" ng-show="shippingForm.state.$touched && shippingForm.state.$error.required">
-                                    Please provide a valid state.
-                                </div>
-                            </div>  
+								</select>
+							</div>
+
 							<!-- ZIP -->
-                            <div class="col-md-3">
-                                <label for="zip" class="form-label required">Zip</label> 
-                                <input type="text" class="form-control" id="zip" name="zip" 
-                                    placeholder="" required ng-model="vm.zip" ng-pattern="/^[0-9]{5}$/">
-                                <div class="error-message" ng-show="shippingForm.zip.$touched && shippingForm.zip.$error.required">
-                                    Zip code is required.
-                                </div>
-                                <div class="error-message" ng-show="shippingForm.zip.$touched && shippingForm.zip.$error.pattern">
-                                    Zip code must be 5 digits.
-                                </div>
-                            </div>
-                        </div>
-                            <hr class="my-4">
-                            <h4 class="mb-3">Payment</h4>
-                            <div class="my-3">
-                                <div class="form-check"> <input id="credit" name="paymentMethod" type="radio"
-                                        class="form-check-input" checked="" required=""> <label class="form-check-label"
-                                        for="credit">Credit card</label> </div>
-                                <div class="form-check"> <input id="debit" name="paymentMethod" type="radio"
-                                        class="form-check-input" required=""> <label class="form-check-label"
-                                        for="debit">Debit card</label> </div>
-                                <div class="form-check"> <input id="paypal" name="paymentMethod" type="radio"
-                                        class="form-check-input" required=""> <label class="form-check-label"
-                                        for="paypal">PayPal</label> </div>
-                            </div>
-                            <div class="row gy-3">
-                                <div class="col-md-6" > <label for="cc-name" class="form-label">Name on card</label> <input
-                                        type="text" class="form-control" id="cc-name" placeholder="" required="">
-                                    <div class="invalid-feedback">
-                                        Name on card is required
-                                    </div>
-                                </div>
-                                <div class="col-md-6"> <label for="cc-number" class="form-label">Credit card number</label>
-                                    <input type="text" class="form-control" id="cc-number" placeholder="" required="">
-                                    <div class="invalid-feedback">
-                                        Credit card number is required
-                                    </div>
-                                </div>
-                                <div class="col-md-3"> <label for="cc-expiration" class="form-label">Expiration</label>
-                                    <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
-                                    <div class="invalid-feedback">
-                                        Expiration date required
-                                    </div>
-                                </div>
-                                <div class="col-md-3"> <label for="cc-cvv" class="form-label">CVV</label> <input type="text"
-                                        class="form-control" id="cc-cvv" placeholder="" required="">
-                                    <div class="invalid-feedback">
-                                        Security code required
-                                    </div>
-                                </div>
-                            </div>
-                            <hr class="my-4"> <button class="w-100 btn btn-primary btn-lg" type="submit">Place Order</button>
-                        </form>
-                    </div>
+							<div class="col-md-3">
+								<label for="zip" class="form-label required">Zip</label>
+								<input type="text" class="form-control" id="zip" name="zip" required ng-model="vm.zip" ng-pattern="/^[0-9]{5}$/">
+							</div>
+
+							<!-- Payment Method -->
+							<div class="my-3">
+								<div class="form-check">
+									<input id="credit" type="radio" name="paymentMethod" class="form-check-input" ng-model="vm.paymentMethod" value="Credit card" required>
+									<label class="form-check-label" for="credit">Credit card</label>
+								</div>
+								<div class="form-check">
+									<input id="debit" type="radio" name="paymentMethod" class="form-check-input" ng-model="vm.paymentMethod" value="Debit card" required>
+									<label class="form-check-label" for="debit">Debit card</label>
+								</div>
+							</div>
+
+							<!-- Credit Card Info -->
+							<div class="row gy-3">
+								<div class="col-md-6">
+									<label for="cc-name" class="form-label required">Name on card</label>
+									<input type="text" class="form-control" id="cc-name" name="ccName" required ng-model="vm.ccName">
+								</div>
+								<div class="col-md-6">
+									<label for="cc-number" class="form-label required">Credit card number</label>
+									<input type="text" class="form-control" id="cc-number" name="ccNumber" required ng-model="vm.ccNumber">
+								</div>
+								<div class="col-md-3">
+									<label for="cc-expiration" class="form-label required">Expiration</label>
+									<input type="text" class="form-control" id="cc-expiration" name="ccExpiration" required ng-model="vm.ccExpiration">
+								</div>
+								<div class="col-md-3">
+									<label for="cc-cvv" class="form-label required">CVV</label>
+									<input type="text" class="form-control" id="cc-cvv" name="ccCVV" required ng-model="vm.ccCVV">
+								</div>
+							</div>
+
+							<hr class="my-4">
+							<button class="w-100 btn btn-primary btn-lg" type="submit">Place Order</button>
+						</div>
+					</form>
+				</div>
                 </div>
             </main>
         <footer class="my-5 pt-5 text-body-secondary text-center text-small">
@@ -342,66 +299,69 @@
         </footer>
         </div>
 <script>
-    angular.module('shippingApp', [])
-        .controller('CheckoutCtrl', function () {
-            var vm = this;
+			angular.module('billingApp', [])
+			.controller('CheckoutCtrl', function() {
+				var vm = this;
 
-            // Initialize form data
-            vm.firstName = '';
-            vm.lastName = '';
-            vm.email = '';
-            vm.AddressOne = '';
-            vm.AddressTwo = '';
-            vm.country = '';
-            vm.state = '';
-            vm.zip = '';
-            vm.shipping = '';
+				vm.firstName = '';
+				vm.lastName = '';
+				vm.email = '';
+				vm.AddressOne = '';
+				vm.AddressTwo = '';
+				vm.country = '';
+				vm.state = '';
+				vm.zip = '';
+				vm.paymentMethod = '';
+				vm.ccName = '';
+				vm.ccNumber = '';
+				vm.ccExpiration = '';
+				vm.ccCVV = '';
 
-            vm.submitForm = function (form) {
-                if (form) {
-                    angular.forEach(form.$error, function (field) {
-                        angular.forEach(field, function (errorField) {
-                            errorField.$setTouched();
-                        });
-                    });
-                }
+				vm.submitForm = function(form) {
+					if (form.$invalid) {
+						angular.forEach(form.$error, function(field) {
+							angular.forEach(field, function(errorField) {
+								errorField.$setTouched();
+							});
+						});
+						return;
+					}
 
-                // Check if form is valid
-                if (form.$valid && vm.shipping) {
-                    console.log("First Name:", vm.firstName);
-                    console.log("Last Name:", vm.lastName);
-                    console.log("Email:", vm.email);
-                    console.log("Address 1:", vm.AddressOne);
-                    console.log("Address 2:", vm.AddressTwo);
-                    console.log("Country:", vm.country);
-                    console.log("State:", vm.state);
-                    console.log("Zip:", vm.zip);
-                    console.log("Shipping Method Selected:", vm.shipping);
+					const billingData = {
+						type: "billing",
+						firstName: vm.firstName,
+						lastName: vm.lastName,
+						email: vm.email,
+						address1: vm.AddressOne,
+						address2: vm.AddressTwo,
+						country: vm.country,
+						state: vm.state,
+						zip: vm.zip,
+						paymentMethod: vm.paymentMethod,
+						ccName: vm.ccName,
+						ccNumber: vm.ccNumber,
+						ccExpiration: vm.ccExpiration,
+						ccCVV: vm.ccCVV
+					};
 
-                    // Reset form after successful submission
-                    vm.resetForm(form);
-                } else {
-                    console.log("Form has validation errors");
-                }
-            };
-
-            vm.resetForm = function (form) {
-                if (form) {
-                    form.$setPristine();
-                    form.$setUntouched();
-                }
-
-                vm.firstName = '';
-                vm.lastName = '';
-                vm.email = '';
-                vm.AddressOne = '';
-                vm.AddressTwo = '';
-                vm.country = '';
-                vm.state = '';
-                vm.zip = '';
-                vm.shipping = '';
-            };
-        });
+					fetch("http://localhost:3000/save-billing", {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify(billingData)
+					})
+					.then(res => res.json())
+					.then(data => {
+						console.log("Saved to CustomerInfo.json:", data);
+						alert("Billing info saved!");
+						form.$setPristine();
+						form.$setUntouched();
+						vm.firstName = vm.lastName = vm.email = vm.AddressOne = vm.AddressTwo = '';
+						vm.country = vm.state = vm.zip = vm.paymentMethod = '';
+						vm.ccName = vm.ccNumber = vm.ccExpiration = vm.ccCVV = '';
+					})
+					.catch(err => console.error("Error saving data:", err));
+				};
+			});
 </script>
 <script src="/docs/5.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" class="astro-vvvwv3sm"></script>

@@ -1,0 +1,26 @@
+{
+  "name": "sunrisebrewingco",
+  "version": "1.0.0",
+  "description": "https://sunrisebrewingco.netlify.app/",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/e-salgado/SunriseBrewingCo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/e-salgado/SunriseBrewingCo/issues"
+  },
+  "homepage": "https://github.com/e-salgado/SunriseBrewingCo#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0"
+  }
+}
