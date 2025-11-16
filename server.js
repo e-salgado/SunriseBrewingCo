@@ -60,6 +60,55 @@ app.get('/', (req, res) => {
     res.send('Welcome to the homepage!');
 });
 
+const RETURNS_FILE = "./returns.json";
+
+// Ensure Returns.json exists
+if (!fs.existsSync(RETURNS_FILE)) {
+    fs.writeFileSync(RETURNS_FILE, JSON.stringify([], null, 2));
+}
+
+app.post("/submit-return", (req, res) => {
+    const newReturn = req.body;
+
+    // Load existing return data
+    let existingReturns = JSON.parse(fs.readFileSync(RETURNS_FILE));
+
+    // Normalize incoming items (support both id strings and item objects)
+    const items = (newReturn.items || []).map(it => {
+        const raw = (typeof it === 'string') ? { id: it } : it;
+        return {
+            id: raw.id || null,
+            name: raw.name || null,
+            quantity: Number(raw.quantity || 1),
+            price: Number(raw.price || 0)
+        };
+    });
+
+    // Compute refund amount
+    const refundAmount = items.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+
+    // Append new return (store normalized items and refundAmount)
+    const toSave = {
+        ...newReturn,
+        items,
+        refundAmount,
+        timestamp: new Date().toISOString()
+    };
+
+    existingReturns.push(toSave);
+
+    // Save file
+    fs.writeFileSync(RETURNS_FILE, JSON.stringify(existingReturns, null, 2));
+
+    console.log("Saved return request:", {
+        reason: toSave.reason,
+        items: toSave.items.map(it => ({ id: it.id, name: it.name, quantity: it.quantity, price: it.price })),
+        refundAmount: toSave.refundAmount
+    });
+
+    res.json({ message: "Return request saved", saved: toSave });
+});
+
 // Start server
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);

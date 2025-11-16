@@ -133,28 +133,27 @@
 
 						<form name="billingForm" ng-controller="CheckoutCtrl as vm" novalidate ng-submit="vm.submitForm(billingForm)">
 						<div class="row g-3">
-							<!-- First Name -->
-							<div class="col-sm-6">
-								<label for="firstName" class="form-label required">First name</label>
-								<input type="text" class="form-control" id="firstName" name="firstName" required ng-model="vm.firstName">
-							</div>
-
-							<!-- Last Name -->
-							<div class="col-sm-6">
-								<label for="lastName" class="form-label required">Last name</label>
-								<input type="text" class="form-control" id="lastName" name="lastName" required ng-model="vm.lastName">
-							</div>
-
-							<!-- Email -->
-							<div class="col-12">
-								<label for="email" class="form-label required">Email</label>
-								<input type="email" class="form-control" id="email" name="email" required ng-model="vm.email">
-							</div>
-
-							<!-- Address 1 -->
+						<!-- First Name -->
+							<div class="error-message" ng-show="billingForm.firstName.$touched && billingForm.firstName.$error.required">First name is required</div>
+							<div class="error-message" ng-show="billingForm.firstName.$touched && billingForm.firstName.$error.minlength">Must be at least 2 characters</div>
+						</div>						<!-- Last Name -->
+						<div class="col-sm-6">
+							<label for="lastName" class="form-label required">Last name</label>
+							<input type="text" class="form-control" id="lastName" name="lastName" required ng-model="vm.lastName" minlength="2" maxlength="50">
+							<div class="error-message" ng-show="billingForm.lastName.$touched && billingForm.lastName.$error.required">Last name is required</div>
+							<div class="error-message" ng-show="billingForm.lastName.$touched && billingForm.lastName.$error.minlength">Must be at least 2 characters</div>
+						</div>						<!-- Email -->
+						<div class="col-12">
+							<label for="email" class="form-label required">Email</label>
+							<input type="email" class="form-control" id="email" name="email" required ng-model="vm.email">
+							<div class="error-message" ng-show="billingForm.email.$touched && billingForm.email.$error.required">Email is required</div>
+							<div class="error-message" ng-show="billingForm.email.$touched && billingForm.email.$error.email">Must be a valid email address</div>
+						</div>							<!-- Address 1 -->
 							<div class="col-12">
 								<label for="address" class="form-label required">Address</label>
-								<input type="text" class="form-control" id="address" name="address" required ng-model="vm.AddressOne">
+								<input type="text" class="form-control" id="address" name="address" required ng-model="vm.AddressOne" minlength="5" maxlength="100">
+								<div class="error-message" ng-show="billingForm.address.$touched && billingForm.address.$error.required">Address is required</div>
+								<div class="error-message" ng-show="billingForm.address.$touched && billingForm.address.$error.minlength">Address must be at least 5 characters</div>
 							</div>
 
 							<!-- Address 2 -->
@@ -231,13 +230,13 @@
 								</select>
 							</div>
 
-							<!-- ZIP -->
-							<div class="col-md-3">
-								<label for="zip" class="form-label required">Zip</label>
-								<input type="text" class="form-control" id="zip" name="zip" required ng-model="vm.zip" ng-pattern="/^[0-9]{5}$/">
-							</div>
-
-							<!-- Payment Method -->
+						<!-- ZIP -->
+						<div class="col-md-3">
+							<label for="zip" class="form-label required">Zip</label>
+							<input type="text" class="form-control" id="zip" name="zip" required ng-model="vm.zip" ng-pattern="/^[0-9]{5}$/">
+							<div class="error-message" ng-show="billingForm.zip.$touched && billingForm.zip.$error.required">Zip code is required</div>
+							<div class="error-message" ng-show="billingForm.zip.$touched && billingForm.zip.$error.pattern">Must be exactly 5 digits</div>
+						</div>							<!-- Payment Method -->
 							<div class="my-3">
 								<div class="form-check">
 									<input id="credit" type="radio" name="paymentMethod" class="form-check-input" ng-model="vm.paymentMethod" value="Credit card" required>
@@ -251,26 +250,34 @@
 
 							<!-- Credit Card Info -->
 							<div class="row gy-3">
-								<div class="col-md-6">
-									<label for="cc-name" class="form-label required">Name on card</label>
-									<input type="text" class="form-control" id="cc-name" name="ccName" required ng-model="vm.ccName">
-								</div>
-								<div class="col-md-6">
-									<label for="cc-number" class="form-label required">Credit card number</label>
-									<input type="text" class="form-control" id="cc-number" name="ccNumber" required ng-model="vm.ccNumber">
-								</div>
-								<div class="col-md-3">
-									<label for="cc-expiration" class="form-label required">Expiration</label>
-									<input type="text" class="form-control" id="cc-expiration" name="ccExpiration" required ng-model="vm.ccExpiration">
-								</div>
-								<div class="col-md-3">
-									<label for="cc-cvv" class="form-label required">CVV</label>
-									<input type="text" class="form-control" id="cc-cvv" name="ccCVV" required ng-model="vm.ccCVV">
-								</div>
+							<div class="col-md-6">
+								<label for="cc-name" class="form-label required">Name on card</label>
+								<input type="text" class="form-control" id="cc-name" name="ccName" required ng-model="vm.ccName" minlength="3" maxlength="100">
+								<div class="error-message" ng-show="billingForm.ccName.$touched && billingForm.ccName.$error.required">Name on card is required</div>
+								<div class="error-message" ng-show="billingForm.ccName.$touched && billingForm.ccName.$error.minlength">Must be at least 3 characters</div>
+							</div>
+							<div class="col-md-6">
+								<label for="cc-number" class="form-label required">Credit card number</label>
+								<input type="text" class="form-control" id="cc-number" name="ccNumber" required ng-model="vm.ccNumber" ng-pattern="/^\d{13,19}$/">
+								<div class="error-message" ng-show="billingForm.ccNumber.$touched && billingForm.ccNumber.$error.required">Card number is required</div>
+								<div class="error-message" ng-show="billingForm.ccNumber.$touched && billingForm.ccNumber.$error.pattern">Must be 13-19 digits</div>
+							</div>
+							<div class="col-md-3">
+								<label for="cc-expiration" class="form-label required">Expiration</label>
+								<input type="text" class="form-control" id="cc-expiration" name="ccExpiration" required ng-model="vm.ccExpiration"  ng-pattern="/^(0[1-9]|1[0-2])\/(\d{2})$/">
+								<div class="error-message" ng-show="billingForm.ccExpiration.$touched && billingForm.ccExpiration.$error.required">Expiration is required</div>
+								<div class="error-message" ng-show="billingForm.ccExpiration.$touched && billingForm.ccExpiration.$error.pattern">Must be in MM/YY format</div>
+							</div>
+							<div class="col-md-3">
+								<label for="cc-cvv" class="form-label required">CVV</label>
+								<input type="text" class="form-control" id="cc-cvv" name="ccCVV" required ng-model="vm.ccCVV" ng-pattern="/^\d{3,4}$/">
+								<div class="error-message" ng-show="billingForm.ccCVV.$touched && billingForm.ccCVV.$error.required">CVV is required</div>
+								<div class="error-message" ng-show="billingForm.ccCVV.$touched && billingForm.ccCVV.$error.pattern">Must be 3-4 digits</div>
+							</div>
 							</div>
 
 							<hr class="my-4">
-							<button class="w-100 btn btn-primary btn-lg" type="submit" onclick="orderConf()">Place Order</button>
+							<button class="w-100 btn btn-primary btn-lg orderBtn" type="submit" onclick="placeOrder()">Place Order</button>
 						</div>
 					</form>
 				</div>
@@ -304,13 +311,69 @@
 				vm.ccExpiration = '';
 				vm.ccCVV = '';
 
+				// Validation functions
+				vm.validateField = function(fieldName, value) {
+					switch(fieldName) {
+						case 'firstName':
+						case 'lastName':
+							return value && value.trim().length >= 2;
+						case 'email':
+							return /^[^\s@]+@[^\s@]+\.[a-z]{2,6}$/i.test(value);
+						case 'zip':
+							return /^[0-9]{5}$/.test(value);
+						case 'ccName':
+							return value && value.trim().length >= 3;
+						case 'ccNumber':
+							return /^\d{13,19}$/.test(value.replace(/\s/g, ''));
+						case 'ccExpiration':
+							return /^(0[1-9]|1[0-2])\/\d{2}$/.test(value);
+						case 'ccCVV':
+							return /^\d{3,4}$/.test(value);
+						default:
+							return value && value.toString().trim() !== '';
+					}
+				};
+
 				vm.submitForm = function(form) {
 					if (form.$invalid) {
-						angular.forEach(form.$error, function(field) {
-							angular.forEach(field, function(errorField) {
+						angular.forEach(form.$error, function (field) {
+							angular.forEach(field, function (errorField) {
 								errorField.$setTouched();
 							});
 						});
+						return;
+					}
+
+					// Additional client-side validation
+					const validationErrors = [];
+
+					if (!vm.validateField('firstName', vm.firstName)) {
+						validationErrors.push('First name must be at least 2 characters');
+					}
+					if (!vm.validateField('lastName', vm.lastName)) {
+						validationErrors.push('Last name must be at least 2 characters');
+					}
+					if (!vm.validateField('email', vm.email)) {
+						validationErrors.push('Email must be valid (e.g., user@example.com)');
+					}
+					if (!vm.validateField('zip', vm.zip)) {
+						validationErrors.push('Zip code must be exactly 5 digits');
+					}
+					if (!vm.validateField('ccName', vm.ccName)) {
+						validationErrors.push('Name on card must be at least 3 characters');
+					}
+					if (!vm.validateField('ccNumber', vm.ccNumber)) {
+						validationErrors.push('Card number must be 13-19 digits');
+					}
+					if (!vm.validateField('ccExpiration', vm.ccExpiration)) {
+						validationErrors.push('Expiration must be in MM/YY format');
+					}
+					if (!vm.validateField('ccCVV', vm.ccCVV)) {
+						validationErrors.push('CVV must be 3-4 digits');
+					}
+
+					if (validationErrors.length > 0) {
+						alert('Validation errors:\n' + validationErrors.join('\n'));
 						return;
 					}
 
@@ -339,19 +402,21 @@
 					.then(res => res.json())
 					.then(data => {
 						console.log("Saved to CustomerInfo.json:", data);
+						alert("Order placed successfully!");
 						form.$setPristine();
 						form.$setUntouched();
 						vm.firstName = vm.lastName = vm.email = vm.AddressOne = vm.AddressTwo = '';
 						vm.country = vm.state = vm.zip = vm.paymentMethod = '';
 						vm.ccName = vm.ccNumber = vm.ccExpiration = vm.ccCVV = '';
 					})
-					.catch(err => console.error("Error saving data:", err));
+					.catch(err => {
+						alert('Error placing order. Please try again.');
+						console.error("Error saving data:", err);
+					});
+					window.location.href = "index.html";
 				};
 			});
-            function orderConf() {
-                alert("Thank you for your order! A confirmation email will be sent to you shortly.");
-                window.location.href = "index.html";
-            };
+
 </script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {

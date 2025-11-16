@@ -60,7 +60,6 @@
 </head>
 
 <body>
-
     <header class="header">
         <h1>Return Items</h1>
         <p>Select items from your past order to return.</p>
@@ -123,14 +122,23 @@
         submitBtn.addEventListener("click", function () {
             const reason = document.getElementById("return-reason").value;
             const messageBox = document.getElementById("return-message");
-
+            
             if (!reason) {
                 messageBox.innerHTML = `<p class='text-danger'>Please select a return reason.</p>`;
                 return;
             }
 
             const selectedItems = Array.from(document.querySelectorAll('.return-check:checked'))
-                .map(box => box.dataset.id);
+                .map(box => {
+                    const id = box.dataset.id;
+                    const found = Object.values(cart).find(i => String(i.ProductID) === String(id));
+                    return {
+                        id: id,
+                        name: found ? found.name : "",
+                        quantity: found ? found.quantity : 1,
+                        price: found ? found.price : 0.00
+                    };
+                });
 
             if (selectedItems.length === 0) {
                 messageBox.innerHTML = `<p class='text-danger'>Please select at least one item to return.</p>`;
@@ -144,14 +152,24 @@
                 timestamp: new Date().toISOString()
             };
 
-            console.log("Return request submitted:", returnData);
+            // Send return request to backend
+            fetch("http://localhost:3000/submit-return", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(returnData)
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log("Saved return:", data);
+            })
+            .catch(err => console.error("Error saving return:", err));
 
             // ---------------- DELETE ITEMS FROM CART ----------------
-            const cart = JSON.parse(localStorage.getItem("cart")) || {};
-            selectedItems.forEach(id => {
-                delete cart[id];
+            const cartLocal = JSON.parse(localStorage.getItem("cart")) || {};
+            selectedItems.forEach(item => {
+                delete cartLocal[item.id];
             });
-            localStorage.setItem("cart", JSON.stringify(cart));
+            localStorage.setItem("cart", JSON.stringify(cartLocal));
             // --------------------------------------------------------
 
 
@@ -169,6 +187,7 @@
 
     <footer class="text-center py-4 text-muted">
         <p>&copy; 2025 Sunrise Brewing Co</p>
+        <p><a href="./index.html">Home</a></p>
     </footer>
 
 </body>
