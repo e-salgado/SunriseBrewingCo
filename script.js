@@ -33,14 +33,6 @@ $(document).ready(function () {
       `).join("");
       $grid.html(html);
       console.log("Loaded products:", products);
-		
-		$(".product-btn").on("click", function (e) {
-                e.preventDefault();
-                const id = $(this).data("id");
-                const product = products.find(p => p.ProductID === id);
-                addToCart(product);
-            });
-
     }
 
     function filterProducts(category, query = "") {
@@ -96,24 +88,58 @@ $(document).ready(function () {
   
 // --- CART FUNCTIONALITY --- /
 
-    // Retrieve saved cart or initialize empty
-    cart = JSON.parse(localStorage.getItem("cart")) || {};
+// ------------------- CART MANAGER -------------------
+cart = JSON.parse(localStorage.getItem("cart")) || {};
 
-    // Function to update cart in localStorage
-    function saveCart() {
-        localStorage.setItem("cart", JSON.stringify(cart));
+function saveCart() {
+    localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+function addToCart(product) {
+    if (cart[product.ProductID]) {
+        cart[product.ProductID].quantity += 1;
+    } else {
+        cart[product.ProductID] = {
+            ...product,
+            quantity: 1
+        };
     }
+    saveCart();
+}
 
-    // Function to render cart items
+function fixBadCartData() {
+    let changed = false;
+    Object.values(cart).forEach(item => {
+        if (!item.quantity || isNaN(item.quantity)) {
+            item.quantity = 1;
+            changed = true;
+        }
+    });
+    if (changed) saveCart();
+}
+
+fixBadCartData();
+// -----------------------------------------------------
+
+$(document).ready(function () {
+
+    // Render cart items
     function renderCart() {
-        if (!$("#cart-items").length) return; // Only run on cart page
+        if (!$("#cart-items").length) return;
 
         let html = "";
         let total = 0;
 
         $.each(cart, function (id, item) {
+
+            if (!item.quantity || item.quantity < 1) {
+                item.quantity = 1;
+                saveCart();
+            }
+
             const itemTotal = item.price * item.quantity;
             total += itemTotal;
+
             html += `
             <div class="cart-item d-flex justify-content-between align-items-center border-bottom py-3">
                 <div class="d-flex align-items-center">
@@ -132,14 +158,14 @@ $(document).ready(function () {
         });
 
         if (Object.keys(cart).length === 0) {
-            html = `<p class="text-center mt-4" style= "font-size: 2rem;">Your cart is empty.</p>`;
+            html = `<p class="text-center mt-4" style="font-size: 2rem;">Your cart is empty.</p>`;
         }
 
         $("#cart-items").html(html);
         $("#cart-total").text(total.toFixed(2));
     }
 
-    // Listen for quantity changes
+    // Quantity change
     $(document).on("change", ".quantity-input", function () {
         const id = $(this).data("id");
         const qty = parseInt($(this).val());
@@ -158,48 +184,27 @@ $(document).ready(function () {
         renderCart();
     });
 
-    // Checkout
-    $("#checkout-btn").on("click", function () {
-        open("./shipping.html")
-    });
-
-    // Custom alert to confirm when item is added to the cart
-    function shopSweetAlert() {
-            // Hide the default alert
-            window.alert = function () { };
-
-            // Use SweetAlert to display an alert
-            Swal.fire({
-                title: 'Item Added!',
-                text: 'Item Has Been Added To Your Cart',
-                icon: 'success',
-                iconColor: '#e3b23c',
-                confirmButtonText: 'OK',
-                confirmButtonColor: '#e3b23c'
-            });
-        }
-
-    // AJAX ADD-TO-CART from shop page
+    // Add-to-cart from shop AJAX
     $(document).on("click", ".product-btn", function (e) {
         e.preventDefault();
         const productId = $(this).data("id");
 
         $.getJSON("products.json", function (products) {
             const product = products.find(p => p.ProductID === productId);
-            if (cart[productId]) {
-                cart[productId].quantity + 1;
-            } else {
-                cart[productId] = { ...product, quantity: 1 };
-            }
-            saveCart();
-            shopSweetAlert();
+            addToCart(product);
+            Swal.fire({
+                title: 'Item Added!',
+                text: 'Item has been added to your cart',
+                icon: 'success',
+                iconColor: '#e3b23c',
+                confirmButtonColor: '#e3b23c'
+            });
         });
     });
-
-    console.log("Cart data:", cart);
-
-    // Render cart on page load if on cart page
+    
     renderCart();
+});
+
 });
 
 
