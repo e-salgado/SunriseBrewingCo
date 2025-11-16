@@ -11,80 +11,81 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <link rel="stylesheet" href="./style/checkout.css">
     <title>Billing</title>
+    <style>
+        body {
+            -webkit-animation: opening 1s ease-in-out;
+            animation: opening 1s ease-in-out;
+            background: -webkit-gradient(linear, left top, left bottom, from(black), to(transparent)), url("../img/hero-img.jpg");
+            background: linear-gradient(black, transparent), url("../img/hero-img.jpg");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            color: #fff;
+        }
+    
+        input[type="radio"] {
+            -webkit-appearance: none;
+            /* For Webkit browsers */
+            -moz-appearance: none;
+            /* For Mozilla browsers */
+            appearance: none;
+            /* Standard property */
+            background-color: #fff;
+            /* Default background color when unchecked */
+        }
+    
+        input[type="radio"]:checked {
+            background-color: #E3B23C;
+            /* Background color when checked */
+            border-color: #E3B23C;
+            /* Border color when checked */
+        }
+    
+        .btn-primary {
+            background: #E3B23C;
+            border: none;
+        }
+    
+        .btn-primary:hover {
+            background: #6E675F;
+        }
+    
+        .btn-primary:focus {
+            background: #6E675F;
+        }
+    
+        .badge {
+            background-color: #E3B23C;
+        }
+    
+        .list-inline li a {
+            text-decoration: none;
+            color: #E3B23C;
+        }
+    
+        .error-message {
+            color: #dc3545;
+            font-size: 0.875em;
+            margin-top: 0.25rem;
+        }
+    
+        .form-label.required:after {
+            content: " *";
+            color: #dc3545;
+        }
+    
+        .validation-summary {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 0.375rem;
+            color: #721c24;
+            padding: 0.75rem 1.25rem;
+            margin-bottom: 1rem;
+        }
+    </style>
 </head>
-<style>
-    body {
-        -webkit-animation: opening 1s ease-in-out;
-        animation: opening 1s ease-in-out;
-        background: -webkit-gradient(linear, left top, left bottom, from(black), to(transparent)), url("../img/hero-img.jpg");
-        background: linear-gradient(black, transparent), url("../img/hero-img.jpg");
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-attachment: fixed;
-        color: #fff;
-    }
 
-    input[type="radio"] {
-        -webkit-appearance: none;
-        /* For Webkit browsers */
-        -moz-appearance: none;
-        /* For Mozilla browsers */
-        appearance: none;
-        /* Standard property */
-        background-color: #fff;
-        /* Default background color when unchecked */
-    }
-
-    input[type="radio"]:checked {
-        background-color: #E3B23C;
-        /* Background color when checked */
-        border-color: #E3B23C;
-        /* Border color when checked */
-    }
-
-    .btn-primary {
-        background: #E3B23C;
-        border: none;
-    }
-
-    .btn-primary:hover {
-        background: #6E675F;
-    }
-
-    .btn-primary:focus {
-        background: #6E675F;
-    }
-
-    .badge {
-        background-color: #E3B23C;
-    }
-
-    .list-inline li a {
-        text-decoration: none;
-        color: #E3B23C;
-    }
-
-    .error-message {
-        color: #dc3545;
-        font-size: 0.875em;
-        margin-top: 0.25rem;
-    }
-
-    .form-label.required:after {
-        content: " *";
-        color: #dc3545;
-    }
-
-    .validation-summary {
-        background-color: #f8d7da;
-        border: 1px solid #f5c6cb;
-        border-radius: 0.375rem;
-        color: #721c24;
-        padding: 0.75rem 1.25rem;
-        margin-bottom: 1rem;
-    }
-</style>
 
     <body class="bg-body-tertiary">
         <div class="container">
@@ -92,34 +93,20 @@
             <div class="py-5 text-center">
                 <h1 class="h2">Billing form</h1>
             </div>
-            <div class="row g-5">
+            <div class="row g-5 cart-box">
                 <div class="col-md-5 col-lg-4 order-md-last">
                     <h4 class="d-flex justify-content-between align-items-center mb-3">Your
-                            cart <span class="badge rounded-pill">3</span> </h4>
-                    <ul class="list-group mb-3">
-                        <li class="list-group-item d-flex justify-content-between lh-sm">
-                            <div>
-                                <h6 class="my-0">Product name</h6> <small class="text-body-secondary">Brief
-                                    description</small>
-                            </div> <span class="text-body-secondary">$12</span>
+                            cart</h4>
+                        <ul id="billing-cart" class="list-group mb-3"></ul>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Shipping (<span id="billing-shipping-method"></span>)</span>
+                            <strong id="billing-shipping">$0.00</strong>
                         </li>
-                        <li class="list-group-item d-flex justify-content-between lh-sm">
-                            <div>
-                                <h6 class="my-0">Second product</h6> <small class="text-body-secondary">Brief
-                                    description</small>
-                            </div> <span class="text-body-secondary">$8</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between lh-sm">
-                            <div>
-                                <h6 class="my-0">Third item</h6> <small class="text-body-secondary">Brief
-                                    description</small>
-                            </div> <span class="text-body-secondary">$5</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between"> <span>Total (USD)</span>
-                            <strong>$20</strong> </li>
-                    </ul>
-					
-					
+                        <h4 class="d-flex justify-content-between align-items-center mt-3">
+                            Total (USD)
+                            <strong id="billing-total">$0.00</strong>
+                        </h4>
+                        
                 </div>
 					<div class="col-md-7 col-lg-8">
 						<h4 class="mb-3">Billing Address</h4>
@@ -283,7 +270,7 @@
 							</div>
 
 							<hr class="my-4">
-							<button class="w-100 btn btn-primary btn-lg" type="submit">Place Order</button>
+							<button class="w-100 btn btn-primary btn-lg" type="submit" onclick="orderConf()">Place Order</button>
 						</div>
 					</form>
 				</div>
@@ -352,7 +339,6 @@
 					.then(res => res.json())
 					.then(data => {
 						console.log("Saved to CustomerInfo.json:", data);
-						alert("Billing info saved!");
 						form.$setPristine();
 						form.$setUntouched();
 						vm.firstName = vm.lastName = vm.email = vm.AddressOne = vm.AddressTwo = '';
@@ -362,10 +348,57 @@
 					.catch(err => console.error("Error saving data:", err));
 				};
 			});
+            function orderConf() {
+                alert("Thank you for your order! A confirmation email will be sent to you shortly.");
+                window.location.href = "index.html";
+            };
 </script>
-<script src="/docs/5.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" class="astro-vvvwv3sm"></script>
-<script src="checkout.js" class="astro-vvvwv3sm"></script> <wfx-qluqaowbaemi><template
-        shadowrootmode="closed"></template></wfx-qluqaowbaemi>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Read cart from localStorage
+        const cart = JSON.parse(localStorage.getItem("cart")) || {};
+
+        const list = document.getElementById("billing-cart");
+        const totalEl = document.getElementById("billing-total");
+        let shippingData = JSON.parse(localStorage.getItem("selectedShipping")) || {
+            method: "USPS",
+            price: 0.00
+        };
+
+        const SHIPPING_RATE = shippingData.price;
+
+
+        let html = "";
+        let total = 0;
+
+        Object.values(cart).forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            total += itemTotal;
+
+            html += `
+                <li class="list-group-item d-flex justify-content-between lh-sm">
+                    <div>
+                        <h6 class="my-0">${item.name}</h6>
+                        <small class="text-body-secondary">Qty: ${item.quantity}</small>
+                    </div>
+                    <span class="text-body-secondary">$${itemTotal.toFixed(2)}</span>
+                </li>
+            `;
+        });
+
+        if (Object.keys(cart).length === 0) {
+            html = `<li class="list-group-item text-center">Your cart is empty.</li>`;
+        }
+
+        list.innerHTML = html;
+        document.getElementById("billing-shipping-method").textContent = shippingData.method;
+        document.getElementById("billing-shipping").textContent = `$${SHIPPING_RATE.toFixed(2)}`;
+        total += SHIPPING_RATE;
+        totalEl.textContent  = `$${total.toFixed(2)}`;
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="./script.js"></script>
