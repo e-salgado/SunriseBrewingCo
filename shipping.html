@@ -316,10 +316,11 @@
                         })
                             .then(res => res.json())
                             .then(data => {
-                                window.location.href = "./billing.html";
+                                
                             })
                             .catch(err => console.error("Error saving:", err));
                     }
+                    window.location.href = "./billing.html";
                 };
             });
             document.addEventListener("DOMContentLoaded", function () {
