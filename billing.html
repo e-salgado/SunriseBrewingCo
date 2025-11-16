@@ -134,6 +134,9 @@
 						<form name="billingForm" ng-controller="CheckoutCtrl as vm" novalidate ng-submit="vm.submitForm(billingForm)">
 						<div class="row g-3">
 						<!-- First Name -->
+						<div class="col-sm-6">
+							<label for="firstName" class="form-label required">First name</label>
+							<input type="text" class="form-control" id="firstName" name="firstName" required ng-model="vm.firstName" minlength="2" maxlength="50">
 							<div class="error-message" ng-show="billingForm.firstName.$touched && billingForm.firstName.$error.required">First name is required</div>
 							<div class="error-message" ng-show="billingForm.firstName.$touched && billingForm.firstName.$error.minlength">Must be at least 2 characters</div>
 						</div>						<!-- Last Name -->
