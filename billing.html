@@ -405,7 +405,6 @@
 					.then(res => res.json())
 					.then(data => {
 						console.log("Saved to CustomerInfo.json:", data);
-						alert("Order placed successfully!");
 						form.$setPristine();
 						form.$setUntouched();
 						vm.firstName = vm.lastName = vm.email = vm.AddressOne = vm.AddressTwo = '';
@@ -416,6 +415,7 @@
 						alert('Error placing order. Please try again.');
 						console.error("Error saving data:", err);
 					});
+					alert("Order placed successfully!");
 					window.location.href = "index.html";
 				};
 			});
