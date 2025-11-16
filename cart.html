@@ -33,7 +33,7 @@
         <div id="cart-items" class="cart-items container mt-5"></div>
         <div class="cart-summary container text-end mt-4">
             <h2 style="font-size: 2.5rem;">Total: $<span id="cart-total">0.00</span></h2>
-            <button id="checkout-btn" class="product-btn mt-3">Checkout</button>
+            <button id="checkout-btn" class="product-btn mt-3" onclick="toShipping()">Checkout</button>
         </div>
     </main>
 
@@ -58,6 +58,11 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="./script.js"></script>
+    <script>
+        function toShipping() {
+            window.location.href = "shipping.html";
+        }
+    </script>
 </body>
 
 </html>
