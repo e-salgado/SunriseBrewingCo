@@ -1,0 +1,60 @@
+[
+  {
+    "type": "shipping",
+    "firstName": "TEST",
+    "lastName": "TEST",
+    "email": "test1mail@gmail.com",
+    "address1": "111 TEST Ave West Chester",
+    "country": "United States",
+    "state": "KY",
+    "zip": "19380",
+    "shipping": "FedEx2Day",
+    "timestamp": "2025-11-16T03:43:43.780Z"
+  },
+  {
+    "type": "billing",
+    "firstName": "TEST",
+    "lastName": "TEST",
+    "email": "test1mail@gmail.com",
+    "address1": "111 TEST Ave West Chester",
+    "address2": "",
+    "country": "United States",
+    "state": "LA",
+    "zip": "19380",
+    "paymentMethod": "Credit card",
+    "ccName": "Test Tester",
+    "ccNumber": "11111111111111",
+    "ccExpiration": "11/11",
+    "ccCVV": "111",
+    "timestamp": "2025-11-16T03:44:07.412Z"
+  },
+  {
+    "type": "shipping",
+    "firstName": "Esteban",
+    "lastName": "Salgado",
+    "email": "test1mail@gmail.com",
+    "address1": "111 TEST1 Ave West Chester",
+    "country": "United States",
+    "state": "PA",
+    "zip": "19380",
+    "shipping": "FedEx2Day",
+    "timestamp": "2025-11-17T03:39:06.420Z"
+  },
+  {
+    "type": "billing",
+    "firstName": "Esteban",
+    "lastName": "Salgado",
+    "email": "test1mail@gmail.com",
+    "address1": "111 TEST1 Ave West Chester",
+    "address2": "",
+    "country": "United States",
+    "state": "PA",
+    "zip": "19380",
+    "paymentMethod": "Debit card",
+    "ccName": "Esteban Salgado",
+    "ccNumber": "1111111111111111",
+    "ccExpiration": "01/31",
+    "ccCVV": "111",
+    "timestamp": "2025-11-17T03:39:59.411Z"
+  }
+]

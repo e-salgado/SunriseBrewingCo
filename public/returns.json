@@ -1,0 +1,34 @@
+[
+  {
+    "items": [
+      {
+        "id": "B002",
+        "name": "Ethiopian Light Roast",
+        "quantity": 1,
+        "price": 13.49
+      },
+      {
+        "id": "B003",
+        "name": "Espresso Blend",
+        "quantity": 1,
+        "price": 16.99
+      }
+    ],
+    "reason": "Not needed",
+    "timestamp": "2025-11-16T03:44:35.890Z",
+    "refundAmount": 30.479999999999997
+  },
+  {
+    "items": [
+      {
+        "id": "B003",
+        "name": "Espresso Blend",
+        "quantity": 1,
+        "price": 16.99
+      }
+    ],
+    "reason": "Incorrect",
+    "timestamp": "2025-11-17T03:40:28.937Z",
+    "refundAmount": 16.99
+  }
+]
